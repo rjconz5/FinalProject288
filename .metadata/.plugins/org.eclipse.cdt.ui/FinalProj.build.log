@@ -1,0 +1,19 @@
+
+**** Build of configuration Debug for project FinalProj ****
+
+"C:\\ti\\ccsv7\\utils\\bin\\gmake" -k all 
+'Building file: ../main.c'
+'Invoking: ARM Compiler'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/include" --include_path="C:/ti/TivaWare_C_Series-2.1.2.111" -g --gcc --define=ccs="ccs" --define=PART_TM4C123GH6PM --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 255: warning #179-D: variable "dex" was declared but never referenced
+"../main.c", line 23: warning #552-D: variable "irDistance" was set but never used
+'Finished building: ../main.c'
+' '
+'Building target: FinalProj.out'
+'Invoking: ARM Linker'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -g --gcc --define=ccs="ccs" --define=PART_TM4C123GH6PM --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"FinalProj.map" --stack_size=2048 --heap_size=1024 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/include" --reread_libs --diag_wrap=off --warn_sections --display_error_number --xml_link_info="FinalProj_linkInfo.xml" --rom_model -o "FinalProj.out" "./WiFi.obj" "./button.obj" "./ir.obj" "./lcd.obj" "./main.obj" "./movement.obj" "./open_interface.obj" "./servo.obj" "./sonar.obj" "./timer.obj" "./tm4c123gh6pm_startup_ccs.obj" "./uart.obj" "../tm4c123gh6pm.cmd"  -llibc.a -l"C:/ti/TivaWare_C_Series-2.1.2.111/driverlib/ccs/Debug/driverlib.lib" 
+<Linking>
+'Finished building target: FinalProj.out'
+' '
+
+**** Build Finished ****

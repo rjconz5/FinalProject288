@@ -1,4 +1,5 @@
 #include "movement.h"
+#include <stdlib.h>
 
 void cleanup(oi_t* sensor){
     oi_setWheels(0,0);
@@ -20,21 +21,21 @@ void cleanup(oi_t* sensor){
          if(sensor->bumpRight || sensor->bumpLeft){
              return sum;
          }
-         sum += sensor->distance;
+         sum += sensor->distance * modifier;
      }
      oi_setWheels(0,0);
      return sum;
  }
  void turn_clockwise(oi_t* sensor, int degrees){
-     int direction = degrees < 0? 1:0;
-     if(direction ==1)
+     int direction = degrees < 0 ? -1:1;
+     if(direction == -1)
          oi_setWheels(-200, 200);
      else
          oi_setWheels(200,-200);
-     int difference =0;
-     while(difference < degrees){
+     int difference = 0;
+     while(difference < abs(degrees)){
          oi_update(sensor);
-         difference += sensor->angle;
+         difference += abs(sensor->angle);
      }
      oi_setWheels(0,0);
  }

@@ -162,4 +162,5 @@ void UART1_Clear(void){
     for(i=0;i<isr_counter;i++){
         isr_char_buffer[i] = '\0';
     }
+    isr_counter = 0;
 }

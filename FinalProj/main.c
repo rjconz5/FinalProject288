@@ -7,6 +7,7 @@
 #include "servo.h"
 #include "uart.h"
 #include "movement.h"
+#include <stdlib.h>
 
 //#include "driverlib/interrupt.h"
 /*LAB8*/
@@ -30,12 +31,22 @@ void main() {
 	double objectWidthCM[8] =  {-1, -1, -1, -1, -1, -1, -1, -1}; //Max 8 objects
 	char input = '\0';
 	extern char isr_char_buffer[];
+	int togo;
+	int wantToScan = 0;
+
 
 	//WiFi_start("password123");
 
 
 
 	while (1) {
+	    oi_t* sensor = setup();
+	    oi_setWheels(0,0);
+
+
+	    if(wantToScan == 1){
+
+
 //	    uart_receive();
 		servo_0D(); //move servo to 0 Degrees
 		timer_waitMillis(500);
@@ -94,7 +105,7 @@ void main() {
 
 
 			move_servo(2 , 0); //move 2 degrees to the left
-			timer_waitMillis(150);
+			timer_waitMillis(100);
 		}
 
 //DATA ANALYSIS
@@ -250,6 +261,13 @@ void main() {
 			servo_0D();
 			move_servo((((objectEndDegree[smallestObjectIndex] - objectStartDegree[smallestObjectIndex])/2.0) + objectStartDegree[smallestObjectIndex]) , 0);
 		}
+		   wantToScan = 0;
+		   for(object = 0; object < 8; object++){
+		               objectStartDegree[object] =  -1;
+		               objectEndDegree[object] =  -1;
+		               objectWidthCM[object] =  -1; //Max 8 objects
+		   }
+	    }
 		UART1_Clear();
 
 		uart_sendStr("done\n");
@@ -265,11 +283,36 @@ void main() {
 		    strIn[1] = isr_char_buffer[2];
 		}
 		int distance;
+		int modifier;
 		distance = atoi(strIn);
-		oi_t* sensor = setup();
-		int togo = distance * 10;
-		while(togo > 0){
-		    togo -= move_forward(sensor, togo);
+
+		togo = distance * 10;
+		int needToMove;
+		switch(input){
+		case 'w':
+		    needToMove = 1;
+		    modifier = 1;
+		    break;
+		case 's':
+		    needToMove = 1;
+		    modifier = -1;
+		    break;
+		case 'a':
+		    needToMove = 0;
+		    turn_clockwise(sensor, distance);
+		    break;
+		case 'd':
+		    needToMove = 0;
+		    turn_clockwise(sensor, distance * -1);
+		    break;
+		case 't':
+		    needToMove = 0;
+		    wantToScan = 1;
+		    break;
+
+		}
+		while(togo > 0 && needToMove == 1){
+		    togo -= abs(move_forward(sensor, togo * modifier));
 		    if(sensor->bumpLeft){
 		         togo -= move_forward(sensor, -150);
 		         turn_clockwise(sensor, 90);
@@ -283,29 +326,7 @@ void main() {
 		        }
 		    }
 		    cleanup(sensor);
-
-
-
-
-
-
-
-
-//endDATA ANALYSIS
-		timer_waitMillis(20000); //wait 20 seconds and scan again
-
-		//reset variables for next scan
-		for(object = 0; object < 8; object++){
-			objectStartDegree[object] =  -1;
-			objectEndDegree[object] =  -1;
-			objectWidthCM[object] =  -1; //Max 8 objects
-		}
-	/*
-		irDistance, sonarDistance, objectIR, and objectSonar will all be written to before their next use
-	*/
-
-
+		    togo = 0;
 
 	}
-	//WiFi_stop();
 }

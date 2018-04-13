@@ -56,10 +56,10 @@ void uart_init(void){
     UART1_ICR_R = (UART_ICR_TXIC | UART_ICR_RXIC);
 
     //enable send and receive raw interrupts
-    //UART1_IM_R |= UART_IM_TXIM | UART_IM_RXIM;
+    UART1_IM_R |= UART_IM_TXIM | UART_IM_RXIM;
 
     //set priority of usart1 to 1. group 1 bits 21-23
-    //NVIC_PRI1_R |= 0x00200000;
+    NVIC_PRI1_R |= 0x00200000;
 
     //enable interrupt for IRQ 6 set bit 6
     NVIC_EN0_R |= 0x00000040;
@@ -154,4 +154,12 @@ void UART1_Handler(void){
 		UART1_ICR_R |= UART_ICR_TXIC;
 	}
 
+}
+
+
+void UART1_Clear(void){
+    int i;
+    for(i=0;i<isr_counter;i++){
+        isr_char_buffer[i] = '\0';
+    }
 }

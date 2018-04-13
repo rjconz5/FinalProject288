@@ -29,6 +29,7 @@ void main() {
 	int objectEndDegree[8] =  {-1, -1, -1, -1, -1, -1, -1, -1};
 	double objectWidthCM[8] =  {-1, -1, -1, -1, -1, -1, -1, -1}; //Max 8 objects
 	char input = '\0';
+	extern char isr_char_buffer[];
 
 	//WiFi_start("password123");
 
@@ -93,7 +94,7 @@ void main() {
 
 
 			move_servo(2 , 0); //move 2 degrees to the left
-			timer_waitMillis(200);
+			timer_waitMillis(150);
 		}
 
 //DATA ANALYSIS
@@ -249,21 +250,24 @@ void main() {
 			servo_0D();
 			move_servo((((objectEndDegree[smallestObjectIndex] - objectStartDegree[smallestObjectIndex])/2.0) + objectStartDegree[smallestObjectIndex]) , 0);
 		}
-		uart_sendStr("done\n");
-		input = uart_receive();
+		UART1_Clear();
 
-		int dex = 0;
-		int distance;
+		uart_sendStr("done\n");
 		char strIn[2];
-		if(input == 'w'){
-		    input = uart_receive();
-		    strIn[0] = input;
-		    input = uart_receive();
-		    strIn[1] = input;
+		input = isr_char_buffer[0];
+
+		strIn[0] = isr_char_buffer[1];
+		strIn[1] = isr_char_buffer[2];
+
+		while(strIn[1] == '\0'){
+		    input = isr_char_buffer[0];
+		    strIn[0] = isr_char_buffer[1];
+		    strIn[1] = isr_char_buffer[2];
 		}
+		int distance;
 		distance = atoi(strIn);
 		oi_t* sensor = setup();
-		int togo = distance;
+		int togo = distance * 10;
 		while(togo > 0){
 		    togo -= move_forward(sensor, togo);
 		    if(sensor->bumpLeft){

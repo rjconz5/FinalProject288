@@ -34,5 +34,7 @@ void uart_sendBuffer(char* buffer, int length);
 
 void UART1_Handler(void);
 
+void UART1_Clear(void);
+
 
 #endif /* UART_H_ */

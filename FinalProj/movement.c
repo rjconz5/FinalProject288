@@ -26,7 +26,7 @@ int move_forward(oi_t* sensor, int centimeters)
     while (sum < centimeters)
     {
         oi_update(sensor);
-        if (SENSOR_TRIP = 0)
+        if (SENSOR_TRIP == 0)
         {
             if (sensor->bumpRight)
             {

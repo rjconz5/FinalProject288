@@ -21,7 +21,7 @@ void main()
     ping_init(); //sonar
     uart_init();
 
-    int irDistance[91]; //test
+    int irDistance[91];
     int sonarDistance[91];
     int objectIR[91]; //either 0 or 1
     int objectSonar[91]; //either 0 or 1
@@ -254,9 +254,14 @@ void main()
                                         - objectStartDegree[object]) / 2.0)
                                         * 3.14159) / 180.0));
 
-                sprintf(s, "Width Object %d: %d  \n\r", object,
-                        (int) (objectWidthCM[object] / 2.0));
-                //uart_sendStr(s);
+                sprintf(s,
+                        "object %d %d %d\n",
+                        (int) (objectWidthCM[object] / 2.0),
+                        (int) distanceObject,
+                        (int) ((objectEndDegree[object]
+                                - objectStartDegree[object]) / 2.0)
+                                + objectStartDegree[object]);
+                uart_sendStr(s);
             }
 
             int smallestObjectIndex = -1;
@@ -315,7 +320,7 @@ void main()
                         (int) (((objectEndDegree[smallestObjectIndex]
                                 - objectStartDegree[smallestObjectIndex]) / 2.0)
                                 + objectStartDegree[smallestObjectIndex]));
-                uart_sendStr(s);
+//                uart_sendStr(s);
                 lcd_printf(
                         "Object: %d\nWidth: %d cm \nDist: %d\nDeg: %d\n",
                         smallestObjectIndex + 1,

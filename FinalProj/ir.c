@@ -36,6 +36,7 @@ void ir_init(){
 }
 
 int IRVoltstoCM(int volts){
+
 	if(volts >= 3200){
 		return 9;
 	}else if(volts < 3200 && volts > 420){

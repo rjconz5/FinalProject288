@@ -387,6 +387,37 @@ void main()
             needToMove = 0;
             wantToScan = 1;
             break;
+        case 'p':
+            needToMove = 0;
+            wantToScan = 0;
+            oi_setLeds(1,1,255,255);
+            unsigned char notes1[] = { 76, 75, 76, 75, 76, 71, 74, 72, 69, 60,
+                                       64, 69, 71, 64, 68, 71 };
+            unsigned char noteLen[] = { 16, 16, 16, 16, 16, 16, 16, 16, 48, 16,
+                                        16, 16, 48, 16, 16, 16 };
+            oi_loadSong(1, 16, notes1, noteLen);
+            oi_play_song(1);
+            timer_waitMillis(5000);
+            unsigned char notes2[] =
+            {72, 64, 76, 75, 76, 75, 76, 71, 74, 72, 69, 60, 64, 69, 71, 64};
+            unsigned char noteLen1[] =
+            {48, 16, 16, 16, 16, 16, 16, 16, 16, 16, 48, 16, 16, 16, 48, 16};
+            oi_loadSong(1, 16, notes2, noteLen1);
+            oi_play_song(1);
+            timer_waitMillis(5000);
+            unsigned char notes3[] =
+            {72, 71, 69, 1, 76, 75, 69, 1, 71, 72, 74, 76, 67, 77, 76, 74};
+            unsigned char noteLen2[] =
+            {16, 16, 32, 32, 16, 16, 32, 16, 16, 16, 16, 48, 16, 16, 16, 48};
+            oi_loadSong(1, 16, notes3, noteLen2);
+            oi_play_song(1);
+            timer_waitMillis(100);
+            unsigned char notes4[] =
+            {  65, 76, 74, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+            unsigned char noteLen3[] =
+            {   16, 16, 16, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+            oi_loadSong(1, 16, notes4, noteLen3);
+            oi_play_song(1);
 
         }
         while (togo > 0 && needToMove == 1)

@@ -390,13 +390,20 @@ void main()
         case 'p':
             needToMove = 0;
             wantToScan = 0;
-            oi_setLeds(1,1,255,255);
+            int l;
+            for(l=0; l<30; l++){
+                oi_setLeds(1,1,255,255);
+                timer_waitMillis(500);
+                oi_setLeds(1,1,0,255);
+                timer_waitMillis(500);
+            }
             unsigned char notes1[] = { 76, 75, 76, 75, 76, 71, 74, 72, 69, 60,
                                        64, 69, 71, 64, 68, 71 };
             unsigned char noteLen[] = { 16, 16, 16, 16, 16, 16, 16, 16, 48, 16,
                                         16, 16, 48, 16, 16, 16 };
             oi_loadSong(1, 16, notes1, noteLen);
             oi_play_song(1);
+            oi_setLeds(1,1,255,127);
             timer_waitMillis(5000);
             unsigned char notes2[] =
             {72, 64, 76, 75, 76, 75, 76, 71, 74, 72, 69, 60, 64, 69, 71, 64};

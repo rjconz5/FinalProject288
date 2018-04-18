@@ -114,7 +114,7 @@ void main()
                 //uart_sendStr(s);
 
                 move_servo(2, 0); //move 2 degrees to the left
-                timer_waitMillis(100);
+                timer_waitMillis(50);
             }
 
 //DATA ANALYSIS
@@ -242,16 +242,16 @@ void main()
                 sprintf(s, "SonarDist Index: %d  \n\r", sonarIndex);
                 //uart_sendStr(s);
 
-                double distanceObject = ((double) sonarDistance[sonarIndex]);
-                //double distanceObject = (double)irDistance[sonarIndex];
+                //double distanceObject = ((double) sonarDistance[sonarIndex]);
+                double distanceObject = ((double)irDistance[sonarIndex]+(double) sonarDistance[sonarIndex])/2;
 
                 sprintf(s, "SonarDist Object %d: %d  \n\r", object,
                         (int) distanceObject);
                 //uart_sendStr(s);
-                objectWidthCM[object] = 2.0
+                objectWidthCM[object] = 4.0
                         * (distanceObject
                                 * tan((((objectEndDegree[object]
-                                        - objectStartDegree[object]) / 2.0)
+                                        - objectStartDegree[object] + 4) / 2.0)
                                         * 3.14159) / 180.0));
 
                 sprintf(s,
@@ -322,13 +322,14 @@ void main()
                                 + objectStartDegree[smallestObjectIndex]));
 //                uart_sendStr(s);
                 lcd_printf(
-                        "Object: %d\nWidth: %d cm \nDist: %d\nDeg: %d\n",
+                        "Object: %d\nWidth: %d cm \nDist: %d\nDeg: %d\n Ang: %d\n",
                         smallestObjectIndex + 1,
                         (int) (objectWidthCM[smallestObjectIndex] / 2.0),
                         (int) distanceObject,
                         (int) (((objectEndDegree[smallestObjectIndex]
                                 - objectStartDegree[smallestObjectIndex]) / 2.0)
-                                + objectStartDegree[smallestObjectIndex]));
+                                + objectStartDegree[smallestObjectIndex]), (int)(objectEndDegree[smallestObjectIndex]
+                                                                                                 - objectStartDegree[smallestObjectIndex]));
                 servo_0D();
                 move_servo(
                         (((objectEndDegree[smallestObjectIndex]
@@ -393,9 +394,9 @@ void main()
             int l;
             for(l=0; l<30; l++){
                 oi_setLeds(1,1,255,255);
-                timer_waitMillis(500);
+                timer_waitMillis(100);
                 oi_setLeds(1,1,0,255);
-                timer_waitMillis(500);
+                timer_waitMillis(100);
             }
             unsigned char notes1[] = { 76, 75, 76, 75, 76, 71, 74, 72, 69, 60,
                                        64, 69, 71, 64, 68, 71 };
@@ -418,7 +419,7 @@ void main()
             {16, 16, 32, 32, 16, 16, 32, 16, 16, 16, 16, 48, 16, 16, 16, 48};
             oi_loadSong(1, 16, notes3, noteLen2);
             oi_play_song(1);
-            timer_waitMillis(100);
+            timer_waitMillis(5000);
             unsigned char notes4[] =
             {  65, 76, 74, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
             unsigned char noteLen3[] =

@@ -132,32 +132,32 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-FinalProj1.out \
+FinalProj.out \
 
 EXE_OUTPUTS__QUOTED += \
-"FinalProj1.out" \
+"FinalProj.out" \
 
 BIN_OUTPUTS += \
-FinalProj1.hex \
+FinalProj.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"FinalProj1.hex" \
+"FinalProj.hex" \
 
 
 # All Target
-all: FinalProj1.out
+all: FinalProj.out
 
 # Tool invocations
-FinalProj1.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+FinalProj.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -g --gcc --define=ccs="ccs" --define=PART_TM4C123GH6PM --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"FinalProj1.map" --stack_size=4096 --heap_size=2048 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/include" --reread_libs --diag_wrap=off --warn_sections --display_error_number --xml_link_info="FinalProj1_linkInfo.xml" --rom_model -o "FinalProj1.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -g --gcc --define=ccs="ccs" --define=PART_TM4C123GH6PM --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"FinalProj.map" --stack_size=4096 --heap_size=2048 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/include" --reread_libs --diag_wrap=off --warn_sections --display_error_number --xml_link_info="FinalProj_linkInfo.xml" --rom_model -o "FinalProj.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-FinalProj1.hex: $(EXE_OUTPUTS)
+FinalProj.hex: $(EXE_OUTPUTS)
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/bin/armhex"  -o "FinalProj1.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS/bin/armhex"  -o "FinalProj.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $@'
 	@echo ' '
 

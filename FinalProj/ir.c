@@ -41,7 +41,7 @@ int IRVoltstoCM(int volts){
 		return 9;
 	}else if(volts < 3200 && volts > 420){
 
-		return 11247/(pow((double)volts, 0.895)); //y=70998.0/(x^1.116) bot 10
+		return 22408/(pow((double)volts, 0.874)); //y=70998.0/(x^1.116) bot 10, y=11247/(x^-0.895) bot 8,
 	}else{
 		return 80;
 	}

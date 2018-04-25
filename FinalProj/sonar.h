@@ -1,10 +1,14 @@
-/*
- * sonar.h
- *
- *  Created on: Nov 3, 2016
- *      Author: gemullen
- */
-
+/**
+*       @file sonar.h
+*       @brief this is the header file which will contain all required definitions
+*       and basic functions that the sonar class will use
+*
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @date 4/24/2018
+*
+*/
 #ifndef SONAR_H_
 #define SONAR_H_
 

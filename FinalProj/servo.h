@@ -1,9 +1,14 @@
-/*
- * servo.h
- *
- *  Created on: Nov 10, 2016
- *      Author: gemullen
- */
+/**
+*       @file servo.h
+*       @brief this is the header file which will contain all required definitions
+*       and basic functions that the sonar class will use
+*
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @date 4/24/2018
+*
+*/
 
 #ifndef SERVO_H_
 #define SERVO_H_

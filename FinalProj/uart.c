@@ -1,3 +1,15 @@
+/**
+*         @file uart.c
+*         @breif This class is what is used to control the robot's USART
+*         module. It provides the user with all valueable functions to use
+*					this module correctly.
+*
+*         @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*         @date 4/24/2018
+*
+*/
+
 #include "uart.h"
 
 //globals used for testing
@@ -8,6 +20,15 @@ volatile char isr_char_buffer[50];
 //used to hold error bits when receiving uart
 int error_check;
 
+/**
+*       This method will be used to setup and initialize the UART module for use by the
+*				coder.
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @date 4/24/2018
+*
+*/
 //initializes uart1 on gpio port B pins 0 Rx and 1 Tx with a baud rate of 115200
 void uart_init(void){
     //gpio B pin 0 RX pin 1 TX
@@ -77,6 +98,16 @@ void uart_init(void){
     UART1_CTL_R = (UART_CTL_RXE | UART_CTL_TXE | UART_CTL_UARTEN);
 }
 
+/**
+*       This method will be used to send a single char over the UART
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @param data The char that you would like to send through the UART
+*
+*       @date 4/24/2018
+*
+*/
 //blocking call that sends 1 char over uart1
 void uart_sendChar(char data){
     //check to see if empty
@@ -87,12 +118,34 @@ void uart_sendChar(char data){
 
 }
 
+/**
+*       This method will be used to send a buffer over the UART
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @param buffer The buffer that you would like to send through the UART
+*
+*       @param length The length of the buffer that you would like to send through the UART
+*
+*       @date 4/24/2018
+*
+*/
 void uart_sendBuffer(char* buffer, int length) {
 	while((length--) > 0) {
 		uart_sendChar(*(buffer++));
 	}
 }
 
+/**
+*       This method will be used to setup the UART to receive input from the user
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @return The data that the UART receieved
+*
+*       @date 4/24/2018
+*
+*/
 //blocking call to receive over uart1/
 //returns char with data
 int uart_receive(void){
@@ -118,6 +171,14 @@ int uart_receive(void){
 
 }
 
+/**
+*       This method will be used to clean out the UART so it can be reset properly
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @date 4/24/2018
+*
+*/
 void uart_flush(void) {
 	volatile char dummy;
 
@@ -127,11 +188,22 @@ void uart_flush(void) {
 	}
 }
 
+/**
+*       This method will be used to send a string over the UART
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @param data The string that you would like to send through the UART
+*
+*       @date 4/24/2018
+*
+*/
 //sends entire char array over uart1
 //input first element in char array
 void uart_sendStr(const char *data){
 
     while(*data != '\0') {
+      //sends each character in the string until the null terminator
         uart_sendChar(*data);
         data++;
     }
@@ -140,6 +212,14 @@ void uart_sendStr(const char *data){
     uart_sendChar(0);
 }
 
+/**
+*       This method will setup a UART Interrupt handler for UART1
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @date 4/24/2018
+*
+*/
 //Interrupt handler for uart1
 void UART1_Handler(void){
 
@@ -156,7 +236,14 @@ void UART1_Handler(void){
 
 }
 
-
+/**
+*       This method will clear the UART for reuse
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @date 4/24/2018
+*
+*/
 void UART1_Clear(void){
     int i;
     for(i=0;i<isr_counter;i++){

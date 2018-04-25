@@ -1,3 +1,14 @@
+/**
+*       @file movement.h
+*       @brief this is the header file which will contain all required definitions
+*       and basic functions that the movement class will use
+*
+*
+*       @author Ryan Connolly, Ian Rostkowski, Jacob Moody, and Jacob Brown
+*
+*       @date 4/24/2018
+*
+*/
 #include "open_interface.h"
 
 
